@@ -15,7 +15,7 @@ Um sistema completo e instalável, baseado em Debian estável, leve e fácil par
 Decidida em [docs/architecture.md](docs/architecture.md), com base na análise de [docs/reference-analysis.md](docs/reference-analysis.md):
 
 - **Base:** Debian 13 "trixie" (estável) construído com `live-build`.
-- **Desktop inicial:** XFCE (Cinnamon fica como perfil experimental futuro; motivos no documento).
+- **Desktop:** Cinnamon com experiência tipo Linux Mint, só com pacotes do Debian (D-014); mais uma categoria "Segurança" no menu, no estilo do Kali. (A escolha original era XFCE, revertida a pedido do usuário; o porquê está em D-002/D-014.)
 - **Ferramentas de segurança:** somente do archive Debian no início; ferramentas ausentes (ZAP, Ghidra…) viram módulos opt-in verificados, **ainda não implementados**.
 - **Instalador:** Calamares (D-013); alvo instalado somente UEFI, com dual boot (Windows) ou disco criptografado a critério do usuário. Não testado.
 
@@ -35,13 +35,13 @@ Decidida em [docs/architecture.md](docs/architecture.md), com base na análise d
 | Lista | Conteúdo |
 |---|---|
 | `00-base` | NetworkManager, locale pt_BR, sudo, firmware e microcódigo |
-| `10-desktop-xfce` | XFCE por componentes (sem `xfce4`/`xfce4-goodies`/`xorg`), `lightdm`, PipeWire, Bluetooth, tema Greybird |
+| `10-desktop-cinnamon` | Cinnamon (`cinnamon-core`, sem o ambiente completo), `slick-greeter`, Nemo, Synaptic, ícones Mint-Y, PipeWire, Bluetooth |
 | `20-productivity-dev` | Firefox ESR (pt-BR), git, python3, compiladores, utilitários |
 | `30-security-essential` | nmap, tcpdump, tshark, sqlmap, john, binwalk, sleuthkit e utilitários de rede (todos do Debian) |
 | `40-installer` | Calamares, GRUB/shim UEFI assinados, `os-prober`, LUKS, ferramentas de partição |
 | `50-system-laptop` | atualizações automáticas de segurança, `ufw`, `timeshift`, `tlp`, `thermald`, `fwupd` |
 
-Perfis opcionais (`profiles/`, instalados sob demanda com `sudo maska-profile install <perfil>`): `seguranca-gui` (Wireshark), `seguranca-pesada` (hashcat, hydra, gdb, strace, ltrace), `escritorio` (LibreOffice), `java-runtime`, `multimidia` (VLC), `impressao` (CUPS), `utilitarios-disco`. ZAP, Ghidra e Metasploit não existem no Debian 13 e **não** são instalados automaticamente: [docs/ferramentas-sob-demanda.md](docs/ferramentas-sob-demanda.md).
+Perfis opcionais (`profiles/`, instalados sob demanda com `sudo maska-profile install <perfil>`): `seguranca-gui` (Wireshark), `seguranca-pesada` (hashcat, hydra, gdb, strace, ltrace), `escritorio` (LibreOffice), `java-runtime`, `multimidia` (VLC), `impressao` (CUPS), `utilitarios-disco`. ZAP, Ghidra e Metasploit não existem no Debian 13 e **não** são instalados automaticamente: [docs/ferramentas-sob-demanda.md](docs/ferramentas-sob-demanda.md). O menu ganha uma categoria **Segurança** (lançadores `maska-*.desktop` → `maska-ferramenta`) que abre a ferramenta no terminal com a ajuda e um shell pronto; o lançador só aceita uma lista fixa de ferramentas.
 
 Meta de teste (não resultado): ≤ 1,2 GB de RAM em repouso. Método de medição: [docs/build-plan.md §5](docs/build-plan.md#5-meta-de-ram-em-repouso-e-como-medir).
 

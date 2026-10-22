@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Version=1.1
+Name=John the Ripper
+GenericName=Quebra de senhas offline (hashes próprios)
+Comment=Quebra de senhas offline (hashes próprios)
+Exec=maska-ferramenta john
+Icon=security-high
+Terminal=true
+Categories=System;Security;X-Maska-Security;
+Keywords=seguranca;pentest;maska;

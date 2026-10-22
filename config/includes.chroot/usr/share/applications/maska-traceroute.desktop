@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Version=1.1
+Name=traceroute
+GenericName=Rota até um host
+Comment=Rota até um host
+Exec=maska-ferramenta traceroute
+Icon=security-high
+Terminal=true
+Categories=System;Security;X-Maska-Security;
+Keywords=seguranca;pentest;maska;

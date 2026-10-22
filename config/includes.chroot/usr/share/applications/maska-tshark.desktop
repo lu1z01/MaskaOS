@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Version=1.1
+Name=TShark
+GenericName=Análise de tráfego (Wireshark CLI)
+Comment=Análise de tráfego (Wireshark CLI)
+Exec=maska-ferramenta tshark
+Icon=security-high
+Terminal=true
+Categories=System;Security;X-Maska-Security;
+Keywords=seguranca;pentest;maska;

@@ -1,0 +1,16 @@
+<!DOCTYPE Menu PUBLIC "-//freedesktop//DTD Menu 1.0//EN"
+ "http://www.freedesktop.org/standards/menu-spec/menu-1.0.dtd">
+<!-- Adiciona a categoria "Seguranca" ao menu do Cinnamon (e a qualquer menu XDG),
+     agrupando os lancadores marcados com Categories=...;X-Maska-Security; -->
+<Menu>
+  <Name>Applications</Name>
+  <Menu>
+    <Name>Maska-Security</Name>
+    <Directory>maska-security.directory</Directory>
+    <Include>
+      <And>
+        <Category>X-Maska-Security</Category>
+      </And>
+    </Include>
+  </Menu>
+</Menu>

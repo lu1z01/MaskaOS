@@ -35,7 +35,7 @@ sh tests/static-checks.sh            # sintaxe, segurança, comandos destrutivos
 | 2 | `docs/architecture.md` | Decisões D-001…D-013 revisadas pelo usuário |
 | 3 | Estrutura + README | `tests/static-checks.sh` passa; CI verde |
 | 4 | **ISO Live mínima inicializável** | §4 |
-| 5 | XFCE + usabilidade | §4 completo + sessão gráfica, rede, áudio e mídia removível verificados em VM |
+| 5 | Cinnamon + usabilidade | §4 completo + sessão Cinnamon, categoria Segurança no menu, rede, áudio e mídia removível verificados em VM |
 | 6 | Produtividade/dev | Listas instalam sem conflito; tamanho da ISO registrado |
 | 7 | Perfis de segurança | Cada ferramenta: origem (Debian ou módulo verificado), versão, `--version` executa |
 | 8 | Identidade visual | Ativos com licença registrada; sem marcas de terceiros |
@@ -52,9 +52,9 @@ Executar na VM de build: `./scripts/build.sh` (**não executado ainda**). Aceito
 1. `lb build` termina com código 0; `build/build.log` guardado.
 2. Existe `build/out/*.iso` e `SHA256SUMS`; `sha256sum -c` confere; o hash também confere **no Windows** (`Get-FileHash`) após a cópia da VM.
 3. `scripts/verify-iso.sh` reporta entrada de boot BIOS e UEFI e `/live/{filesystem.squashfs,vmlinuz,initrd}`.
-4. Manifesto da imagem (`filesystem.packages`/`.manifest`) **não contém**: `cinnamon`, `xfce4-goodies`, `task-*`, `kali-*`, `wireshark`, `libreoffice-core`, `hashcat`.
-5. A ISO inicializa em VM **BIOS** e **UEFI** até a sessão XFCE em português do Brasil e teclado `br`.
-6. Dentro da sessão: rede NetworkManager conecta; áudio reproduz (VM); `lsblk`/Thunar mostram mídia removível; `maska-profile list` funciona.
+4. Manifesto da imagem (`filesystem.packages`/`.manifest`) **contém** `cinnamon-core` e **não contém**: `cinnamon-desktop-environment`, `xfce4`, `xfce4-goodies`, `task-*`, `kali-*`, `wireshark`, `libreoffice-core`, `hashcat`.
+5. A ISO inicializa em VM **BIOS** e **UEFI** até a sessão Cinnamon em português do Brasil e teclado `br`; a categoria "Segurança" aparece no menu e `maska-ferramenta nmap` abre o terminal com a ajuda.
+6. Dentro da sessão: rede NetworkManager conecta; áudio reproduz (VM); `lsblk`/Nemo mostram mídia removível; `maska-profile list` funciona.
 7. `systemctl --failed` vazio; `ss -tuln` sem escuta em interfaces externas (esperado: nenhuma). Resultado salvo.
 8. Os repositórios configurados no sistema são apenas Debian (`deb.debian.org` e `security.debian.org`), com chaves do `debian-archive-keyring`; `apt update` funciona sem `trusted=yes`.
 9. **Medição de RAM (§5) registrada**, passe ou falhe em relação à meta de teste.
@@ -74,7 +74,7 @@ A instalação no notebook real **não é executada nem automatizada por este pr
 
 Procedimento:
 1. Criar uma VM de teste com **4096 MB** de RAM (para a pressão de memória não distorcer a medida), 2+ vCPUs, ISO anexada, sem disco ou com disco vazio dedicado.
-2. Iniciar a ISO; a sessão XFCE entra automaticamente; **não abrir aplicativos**.
+2. Iniciar a ISO; a sessão Cinnamon entra automaticamente; **não abrir aplicativos**.
 3. Aguardar **3 minutos**.
 4. Abrir o terminal e executar: `maska-measure-idle` (ou `sh scripts/measure-idle.sh`). Opcional: `maska-measure-idle 1200`.
 5. Copiar a saída completa para `docs/test-reports/AAAA-MM-DD-ram.md`, com: versão/commit, hipervisor, RAM/vCPU da VM, BIOS ou UEFI.
@@ -98,7 +98,7 @@ Métrica: `usado = MemTotal − MemAvailable` (o *page cache* não conta). O scr
 ## 7. Riscos
 
 - `auto/config` e as listas ainda não passaram por `lb config`/`lb build`; opções podem exigir ajuste na versão `1:20250505` do trixie.
-- `--apt-recommends false` pode faltar algo que o XFCE espera (ex.: ícones, agente de autenticação, segredos); só o boot mostra.
+- `--apt-recommends false` pode faltar algo que o Cinnamon espera (ex.: ícones, integração XApp, agente de autenticação); os Recommends relevantes já foram listados à mão, mas só o boot confirma.
 - Estimativas de tamanho vêm de `Installed-Size` e aproximam o `apt`; o manifesto real do build prevalece.
 - Espelho `deb.debian.org` é móvel dentro do trixie; reprodutibilidade real exigirá `snapshot.debian.org` com timestamp fixo (Fase 9/10).
 - Disco rotacional externo: lento e sensível a desconexão. Não remover o HD durante o build.

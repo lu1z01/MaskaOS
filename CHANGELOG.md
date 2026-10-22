@@ -4,6 +4,11 @@ Formato baseado em Keep a Changelog. Versionamento a definir.
 
 ## [Não lançado]
 
+### Alterado (2026-10-22, D-014: desktop Cinnamon no estilo Mint + categoria Segurança)
+- Desktop trocado de XFCE para **Cinnamon** (`cinnamon-core`), a pedido do usuário: `10-desktop-xfce.list.chroot` → `10-desktop-cinnamon.list.chroot` com slick-greeter, Nemo, Synaptic, ícones Mint-Y e substitutos Debian dos apps do Mint (evince no lugar de atril por causa de WebKit/MathJax).
+- Categoria **Segurança** no menu (estilo kali-menu): lançadores `maska-*.desktop` + `maska-security.menu`/`.directory` e o lançador `maska-ferramenta`, que só aceita uma lista fixa de ferramentas e abre a ajuda num terminal.
+- `build.sh` dá bit de execução ao `maska-ferramenta`; `static-checks.sh` passa a exigir `cinnamon-core`, proibir `cinnamon-desktop-environment` e cobrir o novo script.
+
 ### Corrigido (2026-10-22, verificação cruzada com as fontes; ver docs/reference-analysis.md §6)
 - `user-setup` adicionado: sem ele o `live-config` não cria o usuário Live (era só Recommends).
 - `lxpolkit` trocado por `mate-polkit`: o autostart do `lxpolkit` exclui o XFCE.

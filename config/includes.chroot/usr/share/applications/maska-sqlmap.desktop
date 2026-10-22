@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Version=1.1
+Name=sqlmap
+GenericName=Teste de injeção SQL (alvos autorizados)
+Comment=Teste de injeção SQL (alvos autorizados)
+Exec=maska-ferramenta sqlmap
+Icon=security-high
+Terminal=true
+Categories=System;Security;X-Maska-Security;
+Keywords=seguranca;pentest;maska;

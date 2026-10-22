@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Version=1.1
+Name=tcpdump
+GenericName=Captura de pacotes em linha de comando
+Comment=Captura de pacotes em linha de comando
+Exec=maska-ferramenta tcpdump
+Icon=security-high
+Terminal=true
+Categories=System;Security;X-Maska-Security;
+Keywords=seguranca;pentest;maska;

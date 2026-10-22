@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Version=1.1
+Name=Binwalk
+GenericName=Análise de firmware e arquivos
+Comment=Análise de firmware e arquivos
+Exec=maska-ferramenta binwalk
+Icon=security-high
+Terminal=true
+Categories=System;Security;X-Maska-Security;
+Keywords=seguranca;pentest;maska;

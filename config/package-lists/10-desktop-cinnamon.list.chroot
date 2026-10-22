@@ -1,0 +1,61 @@
+# 10 - Desktop Cinnamon com experiencia proxima ao Linux Mint, so com pacotes do Debian (trixie).
+# cinnamon-core = nucleo do Cinnamon (sessao, painel, Muffin, Nemo, configuracoes, protetor de tela).
+# NAO usar cinnamon-desktop-environment nem task-cinnamon-desktop: puxam LibreOffice, jogos e muito mais.
+# Os apps proprios do Mint (mintupdate, mintinstall, xed, xviewer, xreader, mint-themes) NAO existem no Debian;
+# abaixo ficam os substitutos do Debian. Ver docs/architecture.md D-014.
+cinnamon-core
+cinnamon-l10n
+
+# Login no estilo Mint: slick-greeter + ferramenta de configuracao do login
+lightdm
+slick-greeter
+lightdm-settings
+
+# Integracao XApp (bandeja, portais, modulo GTK) - Recommends do cinnamon, listados porque o build usa --apt-recommends false
+xapp-sn-watcher
+libxapp-gtk3-module
+xdg-desktop-portal-xapp
+xdg-desktop-portal-gtk
+
+# Arquivos, compactacao e midia removivel
+nemo-fileroller
+file-roller
+gvfs
+gvfs-fuse
+udisks2
+
+# Rede, audio e Bluetooth (o agente polkit vem do proprio cinnamon)
+network-manager-gnome
+pipewire-audio
+bluez
+blueman
+libspa-0.2-bluetooth
+
+# Aplicativos do dia a dia (equivalentes do Debian aos do Mint). Leitor de documentos: evince
+# (atril, de onde o xreader do Mint deriva, puxa WebKit e MathJax: ~200 MB a mais na ISO)
+gnome-terminal
+gnome-text-editor
+eog
+evince
+gnome-calculator
+gnome-screenshot
+gnome-system-monitor
+
+# Gravador de imagens USB do proprio Mint (empacotado no Debian)
+mintstick
+
+# Atualizacoes e programas: Synaptic + aviso de atualizacoes (substitutos do mintupdate/mintinstall)
+synaptic
+package-update-indicator
+
+# Aparencia: icones Mint-Y (Debian) e temas claro/escuro do GNOME; fontes base
+mint-y-icons
+gnome-themes-extra
+fonts-dejavu-core
+fonts-liberation
+
+# Sessao
+dbus-user-session
+at-spi2-core
+xdg-user-dirs
+xdg-utils

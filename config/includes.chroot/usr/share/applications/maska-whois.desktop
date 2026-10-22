@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Version=1.1
+Name=Whois
+GenericName=Consulta de registro de domínios/IP
+Comment=Consulta de registro de domínios/IP
+Exec=maska-ferramenta whois
+Icon=security-high
+Terminal=true
+Categories=System;Security;X-Maska-Security;
+Keywords=seguranca;pentest;maska;

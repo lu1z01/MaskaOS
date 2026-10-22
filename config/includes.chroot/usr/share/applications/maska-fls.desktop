@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Version=1.1
+Name=Sleuth Kit (fls)
+GenericName=Forense de sistemas de arquivos
+Comment=Forense de sistemas de arquivos
+Exec=maska-ferramenta fls
+Icon=security-high
+Terminal=true
+Categories=System;Security;X-Maska-Security;
+Keywords=seguranca;pentest;maska;

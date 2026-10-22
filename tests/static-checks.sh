@@ -11,7 +11,7 @@ root=$(cd "$(dirname "$0")/.." && pwd)
 cd "$root" || exit 1
 fail=0
 
-scripts="scripts/*.sh tests/*.sh auto/config config/includes.chroot/usr/local/bin/maska-profile config/hooks/live/*.chroot"
+scripts="scripts/*.sh tests/*.sh auto/config config/includes.chroot/usr/local/bin/maska-profile config/includes.chroot/usr/local/bin/maska-ferramenta config/hooks/live/*.chroot"
 # Alvos de varredura de conteudo: tudo menos docs, referencias, saida de build e este teste.
 scan() {
 	grep -rnE "$1" --exclude-dir=.git --exclude-dir=_vendor --exclude-dir=build --exclude-dir=docs \
@@ -91,15 +91,14 @@ fi
 if ls config/archives/* >/dev/null 2>&1; then echo "ERRO: config/archives presente; repositorios extras exigem decisao em docs/architecture.md"; fail=1; fi
 
 lists=$(ls config/package-lists/*.list.chroot 2>/dev/null)
-heavy='^(xfce4|xfce4-goodies|task-[a-z0-9-]+|xorg|kali-[a-z0-9-]+|cinnamon[a-z0-9-]*|libreoffice[a-z0-9-]*|ghidra|metasploit[a-z0-9-]*|zaproxy|burpsuite|wireshark|wireshark-qt|hashcat|hydra|gdb)$'
+heavy='^(xfce4|xfce4-goodies|task-[a-z0-9-]+|xorg|kali-[a-z0-9-]+|cinnamon-desktop-environment|libreoffice[a-z0-9-]*|ghidra|metasploit[a-z0-9-]*|zaproxy|burpsuite|wireshark|wireshark-qt|hashcat|hydra|gdb)$'
 pk=$(for l in $lists; do sed -e 's/#.*//' "$l" | tr -s ' \t' '\n'; done | sed -e '/^$/d')
 if echo "$pk" | grep -E "$heavy"; then echo "ERRO: pacote amplo/pesado em config/package-lists (mover para profiles/)"; fail=1; else echo "OK   sem metapacotes amplos nem ferramentas pesadas na ISO"; fi
-# user-setup: sem ele o live-config nao cria o usuario Live; mate-polkit: agente polkit que inicia no XFCE;
+# user-setup: sem ele o live-config nao cria o usuario Live; cinnamon-core: nucleo do desktop;
 # grub-efi: o helper do Calamares o instala no alvo (verificado nas fontes, docs/reference-analysis.md secao 6).
-for must in user-setup mate-polkit grub-efi calamares calamares-settings-debian grub-efi-amd64 grub-efi-amd64-signed shim-signed os-prober ufw timeshift unattended-upgrades; do
+for must in user-setup cinnamon-core grub-efi calamares calamares-settings-debian grub-efi-amd64 grub-efi-amd64-signed shim-signed os-prober ufw timeshift unattended-upgrades; do
 	if echo "$pk" | grep -qx "$must"; then echo "OK   lista inclui $must"; else echo "ERRO: $must ausente das listas (sistema instalavel/completo)"; fail=1; fi
 done
-if echo "$pk" | grep -qx 'lxpolkit'; then echo "ERRO: lxpolkit nao inicia no XFCE (NotShowIn=...XFCE); use mate-polkit"; fail=1; fi
 if echo "$pk" | grep -qxE 'grub-pc|grub-efi-ia32|power-profiles-daemon'; then echo "ERRO: grub-pc/grub-efi-ia32 conflitam com grub-efi-amd64; power-profiles-daemon conflita com tlp"; fail=1; fi
 dups=$(echo "$pk" | sort | uniq -d)
 if [ -n "$dups" ]; then echo "ERRO: pacotes duplicados nas listas: $dups"; fail=1; else echo "OK   sem duplicatas"; fi

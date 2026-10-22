@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Version=1.1
+Name=dig (DNS)
+GenericName=Consultas DNS
+Comment=Consultas DNS
+Exec=maska-ferramenta dig
+Icon=security-high
+Terminal=true
+Categories=System;Security;X-Maska-Security;
+Keywords=seguranca;pentest;maska;

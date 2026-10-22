@@ -41,7 +41,7 @@ sh "$root/tests/static-checks.sh"
 mkdir -p "$build"
 rm -rf "$build/auto" "$build/config"
 cp -R "$root/auto" "$root/config" "$build/"
-chmod 755 "$build/auto/config" "$build/config/includes.chroot/usr/local/bin/maska-profile"
+chmod 755 "$build/auto/config" "$build/config/includes.chroot/usr/local/bin/maska-profile" "$build/config/includes.chroot/usr/local/bin/maska-ferramenta"
 
 # Perfis opcionais viajam na ISO para `maska-profile` (uma unica fonte: profiles/).
 profiles_dst="$build/config/includes.chroot/usr/share/maska/profiles"

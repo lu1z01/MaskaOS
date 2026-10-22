@@ -1,0 +1,60 @@
+#!/bin/sh
+# Lancador da categoria "Seguranca" do menu (no estilo do kali-menu): mostra a ajuda da
+# ferramenta escolhida e deixa um shell aberto no terminal para usa-la.
+# So aceita as ferramentas da lista abaixo; nao executa nada alem de "<ferramenta> <ajuda>".
+# Uso: maska-ferramenta FERRAMENTA | perfis
+
+set -u
+
+tool=${1:-}
+
+# ferramenta -> argumentos que imprimem a ajuda (sem varrer, capturar ou alterar nada)
+case "$tool" in
+	nmap)       help="-h" ;;
+	whois)      help="--help" ;;
+	dig)        help="-h" ;;
+	traceroute) help="--help" ;;
+	nc)         help="-h" ;;
+	tcpdump)    help="--help" ;;
+	tshark)     help="-h" ;;
+	sqlmap)     help="-h" ;;
+	john)       help="" ;;
+	hashcat)    help="-h" ;;
+	hydra)      help="-h" ;;
+	binwalk)    help="-h" ;;
+	gdb)        help="--help" ;;
+	strace)     help="-h" ;;
+	ltrace)     help="--help" ;;
+	fls)        help="" ;;
+	perfis)     help="" ;;
+	*)
+		echo "maska-ferramenta: ferramenta desconhecida: '$tool'" >&2
+		exit 1 ;;
+esac
+
+echo "=================================================================="
+echo " Maska OS - Seguranca"
+echo " Use apenas em sistemas proprios, laboratorios ou com autorizacao."
+echo "=================================================================="
+echo
+
+if [ "$tool" = "perfis" ]; then
+	maska-profile list
+	echo
+	echo "Instalar um perfil:  sudo maska-profile install <perfil>"
+	echo "Ferramentas fora do Debian (ZAP, Ghidra, Metasploit): veja a documentacao do projeto."
+elif command -v "$tool" >/dev/null 2>&1; then
+	# shellcheck disable=SC2086
+	"$tool" $help 2>&1 | head -n 60
+	echo
+	case "$tool" in
+		nmap|tcpdump|tshark)
+			echo "Varreduras SYN e captura de pacotes exigem root: sudo $tool ..." ;;
+	esac
+else
+	echo "'$tool' nao esta instalado. Veja os perfis opcionais: maska-ferramenta perfis"
+fi
+
+echo
+echo "Terminal pronto. Digite 'exit' para fechar."
+exec "${SHELL:-/bin/bash}" -i
