@@ -1,0 +1,6 @@
+#!/bin/sh
+# Habilita o ufw no boot (politica padrao do ufw: negar entrada, permitir saida).
+# NAO TESTADO: confirmar com `sudo ufw status verbose` na ISO e no sistema instalado.
+set -e
+sed -i 's/^ENABLED=.*/ENABLED=yes/' /etc/ufw/ufw.conf
+systemctl enable ufw.service

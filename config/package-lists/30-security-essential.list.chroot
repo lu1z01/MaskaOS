@@ -1,0 +1,26 @@
+# 30 - Ferramentas essenciais de seguranca, todas do archive Debian (trixie).
+# Uso restrito a auditorias autorizadas e laboratorios proprios.
+# Captura de pacotes e varreduras exigem root: use sudo. Nao ha setuid no dumpcap por padrao.
+
+# Reconhecimento e rede
+nmap
+netcat-openbsd
+bind9-dnsutils
+whois
+traceroute
+
+# Trafego (linha de comando; GUI do Wireshark e opcional em profiles/)
+tcpdump
+tshark
+
+# Aplicacoes web
+sqlmap
+
+# Senhas (modo offline sobre hashes proprios)
+john
+
+# Arquivos e firmware
+binwalk
+
+# Forense
+sleuthkit

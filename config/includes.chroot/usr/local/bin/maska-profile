@@ -1,0 +1,51 @@
+#!/bin/sh
+# Lista e instala perfis opcionais de pacotes do archive Debian (assinado pelo apt).
+# Uso: maska-profile list | show PERFIL | install [--yes] PERFIL
+# No sistema Live a instalacao ocorre na RAM e se perde ao reiniciar.
+
+set -eu
+
+dir=/usr/share/maska/profiles
+
+valid_name() {
+	case "$1" in
+		""|*[!a-z0-9-]*) return 1 ;;
+		*) return 0 ;;
+	esac
+}
+
+packages_of() {
+	sed -e 's/#.*//' "$dir/$1.list" | tr -s ' \t\n' '\n' | sed -e '/^$/d'
+}
+
+cmd=${1:-list}
+case "$cmd" in
+	list)
+		for f in "$dir"/*.list; do
+			[ -e "$f" ] || { echo "Nenhum perfil em $dir" >&2; exit 1; }
+			name=$(basename "$f" .list)
+			printf '%-18s %s\n' "$name" "$(sed -n '1s/^# *//p' "$f")"
+		done
+		;;
+	show)
+		valid_name "${2:-}" && [ -r "$dir/$2.list" ] || { echo "Perfil invalido: ${2:-}" >&2; exit 1; }
+		packages_of "$2"
+		;;
+	install)
+		shift
+		assume=""
+		if [ "${1:-}" = "--yes" ]; then assume="--yes"; shift; fi
+		valid_name "${1:-}" && [ -r "$dir/$1.list" ] || { echo "Perfil invalido: ${1:-}" >&2; exit 1; }
+		if [ "$(id -u)" -ne 0 ]; then
+			echo "Execute com sudo: sudo maska-profile install $1" >&2
+			exit 1
+		fi
+		apt-get update
+		# shellcheck disable=SC2046
+		apt-get install --no-install-recommends $assume $(packages_of "$1")
+		;;
+	*)
+		echo "Uso: maska-profile list | show PERFIL | install [--yes] PERFIL" >&2
+		exit 1
+		;;
+esac

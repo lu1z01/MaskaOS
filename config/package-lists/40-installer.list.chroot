@@ -1,0 +1,28 @@
+# 40 - Instalador grafico e carregador de boot UEFI para instalar o sistema em disco.
+# O instalador SO e executado quando voce o abre; nada e instalado ou particionado automaticamente.
+# Alvo instalado: UEFI. grub-pc (BIOS) conflita com grub-efi-amd64 e nao e suportado como destino.
+
+# Instalador (Calamares com configuracao padrao do Debian; marca a personalizar na Fase 8)
+calamares
+calamares-settings-debian
+
+# Boot UEFI com Secure Boot: GRUB e shim assinados pelo Debian (sem Recommends, listar explicitamente).
+# grub-efi: o helper do Calamares roda 'apt-get install grub-efi' no alvo; ja instalado, nao depende de rede.
+grub-efi
+grub-efi-amd64
+grub-efi-amd64-signed
+shim-signed
+efibootmgr
+
+# Detectar o Windows para o menu de boot (dual boot) e lidar com NTFS/EFI
+os-prober
+ntfs-3g
+dosfstools
+exfatprogs
+
+# Particionamento e criptografia de disco (opcao LUKS no instalador)
+parted
+gdisk
+e2fsprogs
+cryptsetup
+cryptsetup-initramfs

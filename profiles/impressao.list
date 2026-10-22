@@ -1,0 +1,3 @@
+# Perfil opcional: impressao (CUPS escuta em localhost:631; so instale se usar impressora).
+cups
+system-config-printer

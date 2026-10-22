@@ -1,0 +1,3 @@
+# Perfil opcional: Java para Ghidra e OWASP ZAP (instalados manualmente; ver docs/ferramentas-sob-demanda.md).
+# Ghidra 12.2 exige JDK 25 (README oficial); ZAP 2.17 exige Java 17+. default-jre (OpenJDK 21) nao basta.
+openjdk-25-jdk

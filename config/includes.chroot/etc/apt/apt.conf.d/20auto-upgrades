@@ -1,0 +1,3 @@
+// Atualiza listas e aplica atualizacoes de seguranca (origens padrao do Debian em 50unattended-upgrades).
+APT::Periodic::Update-Package-Lists "1";
+APT::Periodic::Unattended-Upgrade "1";

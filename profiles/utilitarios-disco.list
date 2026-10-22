@@ -1,0 +1,3 @@
+# Perfil opcional: utilitarios graficos de disco (cuidado: alteram particoes quando usados).
+gparted
+gnome-disk-utility

@@ -1,0 +1,23 @@
+# 50 - Itens de sistema completo para uso diario em notebook.
+
+# Atualizacoes de seguranca automaticas (configuradas em includes.chroot; desativadas no Live)
+unattended-upgrades
+
+# Firewall: entrada negada por padrao, saida liberada (habilitado por hook; nenhum servico escuta na rede)
+ufw
+
+# Backup/restauracao do sistema
+timeshift
+
+# Bateria e temperatura (tlp conflita com power-profiles-daemon: nao instalar os dois)
+tlp
+thermald
+
+# Firmware de dispositivos (BIOS/UEFI, SSD, etc.) via LVFS
+fwupd
+
+# Saude de discos
+smartmontools
+
+# Video por hardware em GPUs Intel (notebook com Intel de 12a geracao)
+intel-media-va-driver

@@ -1,0 +1,42 @@
+# 00 - Base e inicializacao Live. live-boot e live-config sao adicionados pelo live-build.
+# Regra: cada pacote tem motivo. Sem GUI e sem ferramentas de seguranca aqui.
+
+# Rede (NetworkManager cuida de cabo e Wi-Fi; wpasupplicant e obrigatorio para Wi-Fi WPA)
+network-manager
+wpasupplicant
+iw
+rfkill
+ca-certificates
+systemd-timesyncd
+
+# Localizacao pt_BR (a selecao ocorre via parametros de boot em auto/config)
+locales
+console-setup
+keyboard-configuration
+
+# Privilegios minimos: usuario live usa sudo; sem login root direto
+sudo
+
+# Cria o usuario Live (live-config so executa 0030-user-setup se este pacote existir;
+# e apenas Recommends do live-config, e o build usa --apt-recommends false)
+user-setup
+
+# Uso basico em console
+less
+nano
+pciutils
+usbutils
+bash-completion
+
+# Microcodigo da CPU
+intel-microcode
+amd64-microcode
+
+# Firmware de hardware comum (compromisso: aumenta a ISO, nao a RAM em repouso)
+firmware-linux-free
+firmware-linux-nonfree
+firmware-misc-nonfree
+firmware-iwlwifi
+firmware-realtek
+firmware-atheros
+firmware-sof-signed

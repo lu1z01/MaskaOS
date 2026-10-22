@@ -1,0 +1,22 @@
+# 20 - Produtividade e desenvolvimento essenciais. Itens pesados ficam em profiles/.
+
+# Navegador (inclui leitor de PDF embutido) e traducao
+firefox-esr
+firefox-esr-l10n-pt-br
+
+# Desenvolvimento
+git
+python3
+python3-venv
+build-essential
+geany
+curl
+wget
+jq
+tmux
+htop
+file
+zip
+unzip
+7zip
+openssh-client

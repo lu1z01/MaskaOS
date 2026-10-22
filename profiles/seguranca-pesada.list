@@ -1,0 +1,6 @@
+# Perfil opcional: ferramentas grandes ou de uso especifico, todas do archive Debian.
+hashcat
+hydra
+gdb
+strace
+ltrace

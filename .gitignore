@@ -1,0 +1,6 @@
+# Referencias de terceiros clonadas apenas para estudo (nao fazem parte do projeto)
+_vendor/
+# Saidas de build
+build/
+*.iso
+*.log

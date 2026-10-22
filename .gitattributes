@@ -1,0 +1,2 @@
+# Forca LF: scripts com CRLF quebram no Linux (o git deste Windows usa core.autocrlf=true).
+* text=auto eol=lf

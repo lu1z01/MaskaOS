@@ -1,0 +1,20 @@
+name: lint
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  static-checks:
+    runs-on: ubuntu-24.04
+    steps:
+      # TODO: fixar por SHA do commit antes do primeiro release (tag movel e aceitavel so no alpha).
+      - uses: actions/checkout@v4
+      - name: Indice de pacotes do Debian trixie (SHA-256 conferido; sem chaveiro Debian no runner)
+        run: sh scripts/fetch-package-index.sh
+      - name: Verificacoes estaticas (sintaxe, shellcheck, padroes proibidos, pacotes)
+        run: sh tests/static-checks.sh
