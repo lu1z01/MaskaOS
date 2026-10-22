@@ -32,9 +32,10 @@ if [ ! -f "$root/auto/config" ] || [ ! -f "$root/.gitignore" ]; then
 	exit 1
 fi
 
-"$root/scripts/check-env.sh"
-"$root/scripts/fetch-package-index.sh"
-"$root/tests/static-checks.sh"
+# Chamados via `sh` para nao depender do bit de execucao (perdido em copias feitas no Windows).
+sh "$root/scripts/check-env.sh"
+sh "$root/scripts/fetch-package-index.sh"
+sh "$root/tests/static-checks.sh"
 
 # Partes versionadas sao copiadas para build/; `lb` gera o resto la dentro.
 mkdir -p "$build"
@@ -57,12 +58,32 @@ if SOURCE_DATE_EPOCH=$(git -C "$root" log -1 --format=%ct 2>/dev/null); then
 fi
 
 cd "$build"
-lb config
-sudo lb build 2>&1 | tee "$build/build.log"
 
-iso=$(ls -1 "$build"/*.iso 2>/dev/null | head -n 1 || true)
+# O live-build PULA etapas que ja tem marcador em .build/ (Check_stagefile): sem limpar, uma
+# mudanca nas listas geraria uma ISO com os pacotes antigos, sem erro. `lb clean` (= --all)
+# remove .build, chroot, binary e ISOs antigas; preserva cache/ e a configuracao.
+if [ -d "$build/.build" ] || [ -d "$build/chroot" ]; then
+	sudo lb clean
+fi
+rm -f "$build"/*.iso "$build/out/"*.iso "$build/out/SHA256SUMS" "$build/lb-build.status"
+
+lb config
+
+# Sem pipefail em sh: o codigo de saida do `lb build` e gravado em arquivo para nao ser
+# mascarado pelo `tee`.
+{ sudo lb build; echo "$?" > "$build/lb-build.status"; } 2>&1 | tee "$build/build.log"
+status=$(cat "$build/lb-build.status" 2>/dev/null || echo desconhecido)
+if [ "$status" != "0" ]; then
+	echo "ERRO: lb build terminou com codigo $status; veja $build/build.log" >&2
+	exit 1
+fi
+
+iso=""
+for f in "$build"/*.iso; do
+	if [ -f "$f" ]; then iso=$f; break; fi
+done
 if [ -z "$iso" ]; then
-	echo "ERRO: nenhuma ISO gerada; veja $build/build.log" >&2
+	echo "ERRO: lb build terminou sem gerar ISO; veja $build/build.log" >&2
 	exit 1
 fi
 

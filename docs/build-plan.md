@@ -22,9 +22,9 @@ VirtualBox e Hyper-V não estão instalados/ativos de forma verificada (o Window
 ## 2. Verificações seguras (somente leitura)
 
 ```sh
-./scripts/check-env.sh              # SO, RAM, disco e ferramentas do host de build (na VM)
-./scripts/fetch-package-index.sh    # baixa e confere o índice Packages do trixie em build/pkg-index/
-./tests/static-checks.sh            # sintaxe, segurança, comandos destrutivos, listas, pacotes
+sh scripts/check-env.sh              # SO, RAM, disco e ferramentas do host de build (na VM)
+sh scripts/fetch-package-index.sh    # baixa e confere o índice Packages do trixie em build/pkg-index/
+sh tests/static-checks.sh            # sintaxe, segurança, comandos destrutivos, listas, pacotes
 ```
 
 ## 3. Fases e critérios de conclusão

@@ -58,11 +58,11 @@ Estimativas, **não medidas**:
 Guia completo: **[docs/build-in-vm.md](docs/build-in-vm.md)**. Resumo (na VM Debian 13):
 
 ```sh
-./scripts/check-env.sh              # somente leitura
-./scripts/fetch-package-index.sh    # baixa/confere o índice Packages do trixie
-./tests/static-checks.sh            # testes estáticos e validação de pacotes
-./scripts/build.sh                  # NAO EXECUTADO ainda: gera build/out/<arquivo>.iso e SHA256SUMS
-./scripts/verify-iso.sh build/out/*.iso
+sh scripts/check-env.sh              # somente leitura
+sh scripts/fetch-package-index.sh    # baixa/confere o índice Packages do trixie
+sh tests/static-checks.sh            # testes estáticos e validação de pacotes
+sh scripts/build.sh                  # NAO EXECUTADO ainda: gera build/out/<arquivo>.iso e SHA256SUMS
+sh scripts/verify-iso.sh build/out/*.iso
 ```
 
 A cópia da ISO para a partição de dados do Ventoy é **manual** (Explorer). Nenhum script do projeto formata, particiona, monta ou grava em discos, e nenhum chama ferramentas do Ventoy.

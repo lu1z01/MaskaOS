@@ -37,9 +37,13 @@ else
 fi
 
 echo "== 2. shellcheck"
-if command -v shellcheck >/dev/null 2>&1; then
+sc=$(command -v shellcheck 2>/dev/null || true)
+if [ -z "$sc" ] && [ -x _vendor/tools/shellcheck/shellcheck.exe ]; then
+	sc=_vendor/tools/shellcheck/shellcheck.exe  # binario oficial v0.11.0 baixado com SHA-256 conferido
+fi
+if [ -n "$sc" ]; then
 	# shellcheck disable=SC2086
-	shellcheck $scripts || fail=1
+	"$sc" $scripts || fail=1
 else
 	echo "AVISO shellcheck ausente; pulando"
 fi

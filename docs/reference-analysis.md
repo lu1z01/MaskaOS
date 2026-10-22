@@ -60,6 +60,22 @@ Execução em 2026-10-22, com aprovação do usuário, via `npx -y rea-agents@6.
 
 Conclusão: o REA não analisa repositórios de configuração nem pacotes Debian; serve para inspecionar **binários** que entram na ISO (e, com Ghidra configurado, analisá-los a fundo). A conferência de proveniência do `live-build` foi feita com Python (§6).
 
+## 5. Disponibilidade de ferramentas em Debian trixie
+
+Consultado via `sources.debian.org/api/src/<pacote>/` em 2026-10-22 (pacotes-fonte):
+
+| Categoria do prompt | Presentes em trixie | Ausentes (precisam de módulo/alternativa) |
+|---|---|---|
+| Reconhecimento / rede | nmap 7.95, hydra 9.5, aircrack-ng | — |
+| Tráfego | wireshark 4.4.18 (fonte `wireshark`), tshark | — |
+| Aplicações web | sqlmap 1.9.6, gobuster 3.6.0, ffuf 2.1.0, nikto 2.1.5 (antigo) | **zaproxy**, burpsuite |
+| Senhas | john 1.9.0, hashcat 6.2.6 | — |
+| Engenharia reversa | binwalk 2.4.3 | **ghidra**, radare2 (só em sid, 6.1.8; não em trixie) |
+| Forense | sleuthkit 4.12.1, autopsy 2.24 | — |
+| Vulnerabilidades / exploração | (lynis 3.1.4 para auditoria do próprio sistema) | **metasploit-framework** |
+
+Observações: `autopsy 2.24` é a versão legada baseada em web do Sleuth Kit, não o Autopsy 4 (Java). `nikto 2.1.5` é muito antigo. Qualidade/atualidade por ferramenta precisa ser reavaliada antes de entrar em um perfil.
+
 ## 6. Verificação cruzada com as fontes oficiais (2026-10-22)
 
 Cada decisão do projeto foi comparada com o código-fonte da versão **que vai no trixie**, não com o `main` dos repositórios.
@@ -97,19 +113,3 @@ Cada decisão do projeto foi comparada com o código-fonte da versão **que vai 
 | Kali `live-build-config`, Mint `live-installer`, `mint-themes`, Cinnamon, Nemo (§1–§2) | clones já analisados | ✅ sem mudança; nenhum código copiado |
 
 **Problema encontrado no próprio projeto durante a verificação:** 12 arquivos (inclusive `auto/config`, `scripts/build.sh`, `scripts/fetch-package-index.sh`) estavam com **CRLF**, introduzido por edições feitas no Windows; no Debian esses scripts falhariam. Foram convertidos para LF, foi criado `.gitattributes` (`eol=lf`) e `tests/static-checks.sh` passou a reprovar CRLF (com `grep -U`, porque o grep do Windows esconde o `\r`). A varredura anterior que dizia "sem CRLF" estava errada por esse motivo.
-
-## 5. Disponibilidade de ferramentas em Debian trixie
-
-Consultado via `sources.debian.org/api/src/<pacote>/` em 2026-10-22 (pacotes-fonte):
-
-| Categoria do prompt | Presentes em trixie | Ausentes (precisam de módulo/alternativa) |
-|---|---|---|
-| Reconhecimento / rede | nmap 7.95, hydra 9.5, aircrack-ng | — |
-| Tráfego | wireshark 4.4.18 (fonte `wireshark`), tshark | — |
-| Aplicações web | sqlmap 1.9.6, gobuster 3.6.0, ffuf 2.1.0, nikto 2.1.5 (antigo) | **zaproxy**, burpsuite |
-| Senhas | john 1.9.0, hashcat 6.2.6 | — |
-| Engenharia reversa | binwalk 2.4.3 | **ghidra**, radare2 (só em sid, 6.1.8; não em trixie) |
-| Forense | sleuthkit 4.12.1, autopsy 2.24 | — |
-| Vulnerabilidades / exploração | (lynis 3.1.4 para auditoria do próprio sistema) | **metasploit-framework** |
-
-Observações: `autopsy 2.24` é a versão legada baseada em web do Sleuth Kit, não o Autopsy 4 (Java). `nikto 2.1.5` é muito antigo. Qualidade/atualidade por ferramenta precisa ser reavaliada antes de entrar em um perfil.

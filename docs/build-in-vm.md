@@ -32,9 +32,9 @@ Copie o repositório para o **disco da VM** (por exemplo `~/maska`, via `git clo
 
 ```sh
 cd ~/maska
-./scripts/check-env.sh
-./scripts/fetch-package-index.sh    # com gpgv + debian-archive-keyring, valida a assinatura do InRelease
-./tests/static-checks.sh
+sh scripts/check-env.sh
+sh scripts/fetch-package-index.sh    # com gpgv + debian-archive-keyring, valida a assinatura do InRelease
+sh tests/static-checks.sh
 ```
 
 Todos devem terminar sem `ERRO`. `AVISO` (por exemplo, sem assinatura GPG) exige entender o motivo antes de prosseguir.
@@ -42,7 +42,7 @@ Todos devem terminar sem `ERRO`. `AVISO` (por exemplo, sem assinatura GPG) exige
 ## 4. Build
 
 ```sh
-./scripts/build.sh      # roda check-env, índice, testes estáticos, lb config e sudo lb build
+sh scripts/build.sh      # roda check-env, índice, testes estáticos, lb config e sudo lb build
 ```
 
 Saída: `build/out/<arquivo>.iso` e `build/out/SHA256SUMS`; log em `build/build.log`. Se a ISO não aparecer, leia o log antes de alterar qualquer arquivo. O nome real da ISO (provavelmente `live-image-amd64.hybrid.iso`) e a duração devem ser registrados.
@@ -50,7 +50,7 @@ Saída: `build/out/<arquivo>.iso` e `build/out/SHA256SUMS`; log em `build/build.
 ## 5. Validar a ISO (na VM)
 
 ```sh
-./scripts/verify-iso.sh build/out/*.iso
+sh scripts/verify-iso.sh build/out/*.iso
 sha256sum -c build/out/SHA256SUMS
 ```
 
