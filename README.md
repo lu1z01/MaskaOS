@@ -112,3 +112,5 @@ Sem política de release ainda. Meta: seguir `debian-security` do trixie (suport
 ## Contribuir e reportar vulnerabilidades
 
 [CONTRIBUTING.md](CONTRIBUTING.md) · [SECURITY.md](SECURITY.md) · [CHANGELOG.md](CHANGELOG.md)
+#   M a s k a O S  
+ 
