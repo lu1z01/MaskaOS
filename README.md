@@ -1,6 +1,6 @@
 # Maska OS
 
-> Nome provisório; sem checagem de marca. Distribuição Linux **independente** para produtividade e estudo/prática de cibersegurança.
+Distribuição Linux **independente** para produtividade e estudo/prática de cibersegurança.
 
 **Status: pré-alpha / planejamento.** Não existe ISO. Nenhuma ISO foi construída, testada ou publicada, e o instalador nunca foi executado. Este repositório contém a arquitetura decidida, a configuração planejada e as verificações estáticas.
 
@@ -112,5 +112,6 @@ Sem política de release ainda. Meta: seguir `debian-security` do trixie (suport
 ## Contribuir e reportar vulnerabilidades
 
 [CONTRIBUTING.md](CONTRIBUTING.md) · [SECURITY.md](SECURITY.md) · [CHANGELOG.md](CHANGELOG.md)
-#   M a s k a O S  
+#   M a s k a O S 
+ 
  
